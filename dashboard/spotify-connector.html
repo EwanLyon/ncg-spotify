@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+	<script type="module">
+		import '../node_modules/@polymer/paper-button/paper-button.js';
+	</script>
+	
+	<script src="spotify-connector.js"></script>
+	<style>
+		paper-button {
+			background-color: #1db954;
+			width: 100%;
+			margin: 3px 0;
+		}
+	</style>
+</head>
+<body>
+	<paper-button raised onclick="getAuth()">Log in</paper-button>
+	<paper-button raised onclick="refreshToken()" id="refreshBtn">Refresh Token</paper-button>
+</body>
+</html>

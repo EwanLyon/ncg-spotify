@@ -1,0 +1,24 @@
+{
+	"$schema": "http://json-schema.org/draft-04/schema#",
+	"type": "object",
+	"additionalProperties": false,
+    "properties": {
+        "name": {
+            "type": "string",
+            "default": ""
+        },
+        "artist": {
+            "type": "string",
+            "default": ""
+        },
+        "albumArt": {
+            "type": "string",
+            "default": ""
+        },
+        "playing": {
+            "type": "boolean",
+            "default": false
+        }
+    },
+    "required": ["name", "artist", "albumArt", "playing"]
+}

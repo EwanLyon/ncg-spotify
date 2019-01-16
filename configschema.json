@@ -1,0 +1,17 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+	"type": "object",
+    "additionalProperties": false,
+    
+    "properties": {
+        "clientId": {
+            "type": "string",
+            "default": "CLIENT-ID"
+        },
+        "clientSecret": {
+            "type": "string",
+            "default": "CLIENT-SECRET"
+        }
+    },
+    "required": ["clientId", "clientSecret"]
+}

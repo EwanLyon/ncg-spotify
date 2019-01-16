@@ -1,0 +1,64 @@
+{
+  "name": "ncg-spotify",
+  "version": "1.0.0",
+  "description": "Connector for spotify to allow spotify song titles to show",
+  "files": [
+    "dashboard",
+    "graphics",
+    "extension.js",
+    "extension"
+  ],
+  "keywords": [
+    "",
+    "nodecg-bundle"
+  ],
+  "nodecg": {
+    "compatibleRange": "^1.1.1",
+    "transformBareModuleSpecifiers": true,
+    "dashboardPanels": [
+      {
+        "name": "spotify-connector",
+        "title": "Spotify Connector",
+        "width": 2,
+        "file": "spotify-connector.html",
+        "workspace": "Spotify",
+        "headerColor": "#1db954"
+      }
+    ],
+    "graphics": [
+      {
+        "file": "spotify-test.html",
+        "width": 1920,
+        "height": 1080
+      }
+    ],
+    "mount": [
+      {
+        "directory": "spotify-callback",
+        "endpoint": "spotify-callback"
+      }
+    ]
+  },
+  "dependencies": {
+    "@polymer/paper-button": "^3.0.1",
+    "spotify-web-api-node": "^4.0.0"
+  },
+  "scripts": {
+    "static": "npm run static:node && npm run static:browser && npm run static:shared",
+    "static:node": "tslint -p tsconfig.node.json -t stylish",
+    "static:browser": "tslint -p tsconfig.browser.json -t stylish",
+    "static:shared": "tslint -p shared/tsconfig.node.json -t stylish",
+    "pretest": "npm run static",
+    "build": "npm run schema-types && npm run build:extension && npm run build:browser",
+    "build:extension": "trash dist && tsc -b tsconfig.node.json",
+    "build:browser": "tsc -p tsconfig.browser.json",
+    "watch:extension": "tsc -b tsconfig.node.json --watch",
+    "watch:browser": "tsc -p tsconfig.browser.json --watch",
+    "schema-types": "trash src/types/schemas && nodecg schema-types",
+    "start": "node ../.. --bundlesEnabled=ncg-spotify"
+  },
+  "devDependencies": {
+    "trash-cli": "^1.4.0",
+    "typescript": "^3.2.2"
+  }
+}
