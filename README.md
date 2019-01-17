@@ -29,7 +29,7 @@ To access it make a replicant like `const song = nodecg.Replicant('currentSong',
 
 ### Example
 
-    const songRep = nodecg.Replicant('currentSong', 'ncg-spotify);
+    const songRep = nodecg.Replicant('currentSong', 'ncg-spotify');
     
     songRep.on('change', newVal => {
     	songNameElement.innerHTML = newVal.name;
