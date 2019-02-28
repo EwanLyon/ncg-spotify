@@ -10,9 +10,10 @@ A NodeCG bundle to access the current song playing on spotify.
 2. `cd nodecg/bundles/ncg-spotify` and run `npm install --production`
 3. If [nodecg-cli](https://github.com/nodecg/nodecg-cli) is installed run `nodecg defaultconfig` else go to `nodecg/cfg` and create `ncg-spotify.json` and refer to [configschema.json](https://github.com/EwanLyon/ncg-spotify/blob/master/configschema.json)
 4. Create a spotify app from https://developer.spotify.com/dashboard/applications
-5. Copy the `Client ID` and `Client Secret` to the ncg-spotify cfg in `nodecg/cfg/ncg-spotify.json` like the `defaultconfig.json` is
-6. Run the nodecg server: `node index.js` (or `nodecg start` if you have [`nodecg-cli`](https://github.com/nodecg/nodecg-cli) installed) from the `nodecg` root directory
-7. Click log in on the spotify connector panel
+5. Click edit settings and set the redirect URI as `http://localhost:9090/bundles/ncg-spotify/spotify-callback/index.html`
+6. Copy the `Client ID` and `Client Secret` to the ncg-spotify cfg in `nodecg/cfg/ncg-spotify.json` like the `defaultconfig.json` is
+7. Run the nodecg server: `node index.js` (or `nodecg start` if you have [`nodecg-cli`](https://github.com/nodecg/nodecg-cli) installed) from the `nodecg` root directory
+8. Click log in on the spotify connector panel
 
 The token should refresh automatically but if something weird happens there is a refresh token button.
 
