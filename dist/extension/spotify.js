@@ -1,7 +1,7 @@
 "use strict";
 'use-strict';
 Object.defineProperty(exports, "__esModule", { value: true });
-const nodecgApiContext = require("./util/nodecg-api-context");
+const nodecgApiContext = require("./nodecg-api-context");
 const nodecg = nodecgApiContext.get();
 const currentSongRep = nodecg.Replicant('currentSong');
 const SpotifyWebApi = require('spotify-web-api-node');
@@ -12,7 +12,7 @@ const redirectURI = `http://${nodecg.config.baseURL}/bundles/ncg-spotify/spotify
 let automaticSongFetching;
 let connectedToSpotify = false;
 const spotifyApi = new SpotifyWebApi;
-if (clientId != "CLIENT-ID" && clientSecret != "CLIENT-SECRET") {
+if (clientId != 'CLIENT-ID' && clientSecret != 'CLIENT-SECRET') {
     spotifyApi.setRedirectURI(redirectURI);
     spotifyApi.setClientId(clientId);
     spotifyApi.setClientSecret(clientSecret);
@@ -22,7 +22,7 @@ else {
 }
 // Log spotify user in
 nodecg.listenFor('login', (_data, cb) => {
-    let authURL = spotifyApi.createAuthorizeURL(spotifyScopes);
+    const authURL = spotifyApi.createAuthorizeURL(spotifyScopes);
     if (connectedToSpotify) {
         return;
     }
@@ -46,7 +46,9 @@ nodecg.listenFor('spotify:authenticated', (code) => {
         setTimeout(() => {
             nodecg.sendMessage('refreshAccessToken');
         }, data.body['expires_in'] * 900);
-        automaticSongFetching = setInterval(function () { nodecg.sendMessage('fetchCurrentSong'); }, 1000);
+        automaticSongFetching = setInterval(function () {
+            nodecg.sendMessage('fetchCurrentSong');
+        }, 1000);
     }, (err) => {
         nodecg.log.error('Something went wrong!', err);
         connectedToSpotify = false;
@@ -68,28 +70,34 @@ nodecg.listenFor('refreshAccessToken', () => {
 nodecg.listenFor('fetchCurrentSong', () => {
     spotifyApi.getMyCurrentPlayingTrack({})
         .then((data) => {
-        if (currentSongRep.value.name == data.body.item.name) {
+        if (!data.body) {
+            return;
+        }
+        // If song is same and playing then no difference
+        if (currentSongRep.value.name == data.body['item.name'] &&
+            currentSongRep.value.playing == data.body['is_playing']) {
             return; // Song has not changed
         }
         let albumArtURL;
         // No album art url if the file is local
-        if (data.body.item.is_local) {
+        // Will get the highest quality image
+        if (data.body['item'].is_local) {
             albumArtURL = '';
         }
         else {
-            albumArtURL = data.body.item.album.images[0].url;
+            albumArtURL = data.body['item'].album.images[0].url;
         }
         // Artists are stored as an array of objects
-        let artistsArray = [];
-        data.body.item.artists.forEach((artist) => {
+        const artistsArray = [];
+        data.body['item'].artists.forEach((artist) => {
             artistsArray.push(artist.name);
         });
-        let artistString = artistsArray.join(', ');
+        const artistString = artistsArray.join(', ');
         currentSongRep.value = {
-            name: data.body.item.name,
+            name: data.body['item'].name,
             artist: artistString || '',
             albumArt: albumArtURL,
-            playing: data.body.is_playing
+            playing: data.body['is_playing'],
         };
     }, (err) => {
         nodecg.log.warn('Something went wrong!', err);
@@ -98,7 +106,9 @@ nodecg.listenFor('fetchCurrentSong', () => {
 nodecg.listenFor('automateCurrentSong', (value) => {
     if (value) {
         // Update every second
-        automaticSongFetching = setInterval(function () { nodecg.sendMessage('fetchCurrentSong'); }, 1000);
+        automaticSongFetching = setInterval(function () {
+            nodecg.sendMessage('fetchCurrentSong');
+        }, 1000);
     }
     else {
         nodecg.log.info('Automatic song updating stopped');
