@@ -75,9 +75,6 @@
 
 			<div class="Label">Currently playing?</div>
 			<div id="playingStatus" class="data"></div>
-
-			<div class="Label">Percentage</div>
-			<div id="percentage" class="data"></div>
 		</div>
 
 		<div id="album">
@@ -99,9 +96,6 @@
 			document.getElementById('songArtist').innerHTML = newVal.artist;
 			document.getElementById('albumArt').src = newVal.albumArt;
 			document.getElementById('playingStatus').innerHTML = newVal.playing;
-
-			let percentage = (newVal.currentTime / newVal.songLength) * 100;
-			document.getElementById('percentage').innerHTML = percentage.toFixed(4);
 		});
 
 		function updateSong() {
