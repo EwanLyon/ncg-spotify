@@ -44,10 +44,9 @@
     "spotify-web-api-node": "^4.0.0"
   },
   "scripts": {
-    "static": "npm run static:node && npm run static:browser && npm run static:shared",
+    "static": "npm run static:node && npm run static:browser",
     "static:node": "tslint -p tsconfig.node.json -t stylish",
     "static:browser": "tslint -p tsconfig.browser.json -t stylish",
-    "static:shared": "tslint -p shared/tsconfig.node.json -t stylish",
     "pretest": "npm run static",
     "build": "npm run schema-types && npm run build:extension && npm run build:browser",
     "build:extension": "trash dist && tsc -b tsconfig.node.json",
@@ -58,6 +57,11 @@
     "start": "node ../.. --bundlesEnabled=ncg-spotify"
   },
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^1.4.2",
+    "@typescript-eslint/parser": "^1.4.2",
+    "eslint": "^5.14.1",
+    "eslint-config-google": "^0.12.0",
+    "eslint-config-typescript": "^2.0.0",
     "trash-cli": "^1.4.0",
     "typescript": "^3.2.2"
   }

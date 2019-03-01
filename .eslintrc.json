@@ -1,0 +1,37 @@
+{
+    "env": {
+        "browser": true,
+        "es6": true,
+        "node": true
+    },
+    "extends": [
+        "typescript",
+        "google"
+    ],
+    "globals": {
+        "Atomics": "readonly",
+        "SharedArrayBuffer": "readonly"
+    },
+    "parser": "@typescript-eslint/parser",
+    "plugins": ["@typescript-eslint"],
+    "parserOptions": {
+        "ecmaVersion": 2018,
+        "sourceType": "module"
+    },
+    "root": true,
+    "rules": {
+        "@typescript-eslint/indent": [
+            "error",
+            "tab"
+		],
+		"indent": [
+			"error",
+			"tab"
+		],
+        "linebreak-style": [
+            "error",
+            "windows"
+        ],
+        "no-tabs": 0
+    }
+}
