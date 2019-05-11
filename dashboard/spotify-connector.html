@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-	<script type="module" src="../node_modules/@polymer/paper-button/paper-button.js"></script>
+	<script type="module" src="../node_modules/@material/mwc-button/mwc-button.js"></script>
 	<style>
-		paper-button {
-			background-color: #1db954;
+		mwc-button {
+			--mdc-theme-primary: #1db954;
 			width: 100%;
 			margin: 3px 0;
 		}
@@ -39,8 +39,9 @@
 	</style>
 </head>
 <body>
-	<paper-button raised id="logIn">Log in</paper-button>
-	<paper-button raised id="refreshBtn">Refresh Token</paper-button>
+	<mwc-button raised id="logIn">Log in</mwc-button>
+	<mwc-button raised id="songUpdate">Force song update</mwc-button>
+	<mwc-button id="refreshBtn">Refresh Token</mwc-button>
 	<hr>
 	<span id="songPlaying">Paused</span>
 	<div id="songInfo">

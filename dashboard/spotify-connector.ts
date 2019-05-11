@@ -2,6 +2,7 @@ import {CurrentSong} from '../src/types/schemas/currentSong';
 const currentSongRep = nodecg.Replicant<CurrentSong>('currentSong');
 
 const logInBtn = document.getElementById("logIn")!;
+const songUpdateBtn = document.getElementById("songUpdate")!;
 const refreshTokenBtn = document.getElementById("refreshBtn")!;
 
 const spotifyCallback = localStorage.getItem('spotify-callback');
@@ -35,6 +36,12 @@ function getAuth() {
 }
 
 /** Requests a new refresh token */
+function updateSong() {
+	console.log('Updating Song');
+	nodecg.sendMessage('fetchCurrentSong');
+}
+
+/** Requests a new refresh token */
 function refreshToken() {
 	console.log('Refreshing Token');
 	nodecg.sendMessage('refreshAccessToken');
@@ -47,5 +54,6 @@ currentSongRep.on('change', newVal => {
 	(<HTMLImageElement>document.getElementById('albumArt'))!.src = newVal.albumArt;
 });
 
-logInBtn.addEventListener('onclick', getAuth);
-refreshTokenBtn.addEventListener('onclick', refreshToken);
+logInBtn.onclick = getAuth;
+songUpdateBtn.onclick = updateSong;
+refreshTokenBtn.onclick = refreshToken;
