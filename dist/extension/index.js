@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 // Ours
 const SpotifyWebApi = require('spotify-web-api-node');
 const spotifyScopes = ['user-read-currently-playing'];
+let updateInterval = 1000; // 1 second
 module.exports = (nodecg) => {
     // Spotify CFG
     const clientId = nodecg.bundleConfig.clientId;
@@ -101,7 +102,13 @@ module.exports = (nodecg) => {
                 playing: data.body['is_playing'],
             };
         }, (err) => {
-            nodecg.log.warn('Something went wrong!', err);
+            if (err['statusCode'] == 429) {
+                nodecg.log.warn(`Rate limit hit. Try again in ${err['Retry-After']}`, err);
+                updateInterval = err['Retry-After'] * 1000;
+            }
+            else {
+                nodecg.log.warn('Something went wrong!', err);
+            }
         });
     });
     nodecg.listenFor('automateCurrentSong', (value) => {
@@ -109,7 +116,7 @@ module.exports = (nodecg) => {
             // Update every second
             automaticSongFetching = setInterval(function () {
                 nodecg.sendMessage('fetchCurrentSong');
-            }, 1000);
+            }, updateInterval);
         }
         else {
             nodecg.log.info('Automatic song updating stopped');

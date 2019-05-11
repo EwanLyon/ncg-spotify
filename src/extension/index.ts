@@ -8,6 +8,7 @@ const SpotifyWebApi = require('spotify-web-api-node');
 import { CurrentSong } from '../types/schemas/currentSong';
 
 const spotifyScopes = ['user-read-currently-playing'];
+let updateInterval = 1000;	// 1 second
 
 module.exports = (nodecg: NodeCG) => {
 	// Spotify CFG
@@ -134,7 +135,12 @@ module.exports = (nodecg: NodeCG) => {
 					playing: data.body['is_playing'],
 				};
 			}, (err: any) => {
-				nodecg.log.warn('Something went wrong!', err);
+				if (err['statusCode'] == 429) {
+					nodecg.log.warn(`Rate limit hit. Try again in ${err['Retry-After']}`, err);
+					updateInterval = err['Retry-After'] * 1000;
+				} else {
+					nodecg.log.warn('Something went wrong!', err);
+				}
 			});
 	});
 
@@ -143,7 +149,7 @@ module.exports = (nodecg: NodeCG) => {
 			// Update every second
 			automaticSongFetching = setInterval(function () {
 				nodecg.sendMessage('fetchCurrentSong');
-			}, 1000);
+			}, updateInterval);
 		} else {
 			nodecg.log.info('Automatic song updating stopped');
 			clearInterval(automaticSongFetching);
