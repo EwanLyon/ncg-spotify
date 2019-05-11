@@ -2,21 +2,55 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-	<script type="module">
-		import '../node_modules/@polymer/paper-button/paper-button.js';
-	</script>
-	
-	<script src="spotify-connector.js"></script>
+	<script type="module" src="../node_modules/@polymer/paper-button/paper-button.js"></script>
 	<style>
 		paper-button {
 			background-color: #1db954;
 			width: 100%;
 			margin: 3px 0;
 		}
+
+		hr {
+			border-color: rgba(255, 255, 255, 0.25);
+		}
+
+		#songPlaying {
+			display: table;
+    		margin: 0 auto 9px auto;
+		}
+
+		#songInfo {
+			display: flex;
+			justify-content: space-between;
+		}
+
+		#songDetails {
+			margin-right: 5px;
+		}
+
+		#songArtist {
+			font-weight: 300;
+			color: rgba(255, 255, 255, 0.5);
+		}
+
+		#albumArt {
+			width: 100px;
+		}
 	</style>
 </head>
 <body>
-	<paper-button raised onclick="getAuth()">Log in</paper-button>
-	<paper-button raised onclick="refreshToken()" id="refreshBtn">Refresh Token</paper-button>
+	<paper-button raised id="logIn">Log in</paper-button>
+	<paper-button raised id="refreshBtn">Refresh Token</paper-button>
+	<hr>
+	<span id="songPlaying">Paused</span>
+	<div id="songInfo">
+		<div id="songDetails">
+			<span id="songName">-------</span></br>
+			<span id="songArtist">-------</span>
+		</div>
+		<img id="albumArt" src="">
+	</div>
+
+	<script src="spotify-connector.js"></script>
 </body>
 </html>
