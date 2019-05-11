@@ -1,7 +1,7 @@
 # ncg-spotify
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/EwanLyon/ncg-spotify/master/media/widget-screenshot.png">
+  <img src="https://raw.githubusercontent.com/EwanLyon/ncg-spotify/master/media/widget-screenshot.jpg">
 </p>
 
 A NodeCG bundle to access the current song playing on spotify.
