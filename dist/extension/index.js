@@ -66,7 +66,7 @@ module.exports = (nodecg) => {
                 nodecg.sendMessage('refreshAccessToken');
             }, data.body['expires_in'] * 900);
         }, (err) => {
-            nodecg.log.warn('Could not refresh access token', err);
+            nodecg.log.error('Could not refresh access token', err);
         });
     });
     nodecg.listenFor('fetchCurrentSong', () => {
@@ -107,7 +107,7 @@ module.exports = (nodecg) => {
                 updateInterval = err['Retry-After'] * 1000;
             }
             else {
-                nodecg.log.warn('Something went wrong!', err);
+                nodecg.log.error('Updating song failed!', err);
             }
         });
     });

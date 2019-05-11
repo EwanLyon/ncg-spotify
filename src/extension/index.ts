@@ -94,7 +94,7 @@ module.exports = (nodecg: NodeCG) => {
 				}, data.body['expires_in'] * 900);
 			},
 			(err: any) => {
-				nodecg.log.warn('Could not refresh access token', err);
+				nodecg.log.error('Could not refresh access token', err);
 			}
 		);
 	});
@@ -139,7 +139,7 @@ module.exports = (nodecg: NodeCG) => {
 					nodecg.log.warn(`Rate limit hit. Try again in ${err['Retry-After']}`, err);
 					updateInterval = err['Retry-After'] * 1000;
 				} else {
-					nodecg.log.warn('Something went wrong!', err);
+					nodecg.log.error('Updating song failed!', err);
 				}
 			});
 	});
