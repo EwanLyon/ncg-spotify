@@ -1,3 +1,17 @@
+
+const spotifyCallback = localStorage.getItem('spotify-callback');
+localStorage.removeItem('spotify-callback');
+
+if (spotifyCallback) {
+	const params = new URLSearchParams(spotifyCallback);
+	if (params.get('error')) {
+		nodecg.log.error('Error after spotify callback');
+	} else {
+		const code = params.get('code');
+		nodecg.sendMessage('spotify:authenticated', code);
+	}
+}
+
 /** Starts the login for spotify, opens auth url */
 function getAuth() {
 	nodecg.sendMessage('login', (err, authURL) => {
@@ -24,15 +38,3 @@ function refreshToken() {
 	nodecg.sendMessage('refreshAccessToken');
 }
 
-const spotifyCallback = localStorage.getItem('spotify-callback');
-localStorage.removeItem('spotify-callback');
-
-if (spotifyCallback) {
-	const params = new URLSearchParams(spotifyCallback);
-	if (params.get('error')) {
-		nodecg.log.error('Error after spotify callback');
-	} else {
-		const code = params.get('code');
-		nodecg.sendMessage('spotify:authenticated', code);
-	}
-}
