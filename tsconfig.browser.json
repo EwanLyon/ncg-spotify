@@ -4,9 +4,6 @@
 		"module": "es2015",
 		"experimentalDecorators": true,
 		"skipLibCheck": true,
-		"paths": {
-			"tslib" : ["node_modules/tslib/tslib.d.ts"]
-		},
 
 		// Extra output
 		"declaration": false,

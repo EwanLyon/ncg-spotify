@@ -8,10 +8,6 @@
     "extension.js",
     "extension"
   ],
-  "keywords": [
-    "",
-    "nodecg-bundle"
-  ],
   "nodecg": {
     "compatibleRange": "^1.1.1",
     "transformBareModuleSpecifiers": true,
