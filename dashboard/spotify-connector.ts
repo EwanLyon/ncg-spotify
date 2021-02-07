@@ -48,10 +48,10 @@ function refreshToken() {
 }
 
 currentSongRep.on('change', newVal => {
-	document.getElementById('songPlaying')!.innerHTML = newVal.playing ? "Playing" : "Paused";
-	document.getElementById('songName')!.innerHTML = newVal.name;
-	document.getElementById('songArtist')!.innerHTML = newVal.artist;
-	(<HTMLImageElement>document.getElementById('albumArt'))!.src = newVal.albumArt;
+	(document.getElementById('songPlaying') as HTMLSpanElement).innerHTML = newVal.playing ? "Playing" : "Paused";
+	(document.getElementById('songName') as HTMLSpanElement).innerHTML = newVal.name;
+	(document.getElementById('songArtist') as HTMLSpanElement).innerHTML = newVal.artist;
+	(document.getElementById('albumArt') as HTMLImageElement).src = newVal.albumArt;
 });
 
 logInBtn.onclick = getAuth;
