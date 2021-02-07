@@ -41,6 +41,8 @@ To access it make a replicant like `const song = nodecg.Replicant('currentSong',
     	artistElement.innerHTML = newVal.artist;
     	albumImageElement.src = newVal.albumArt;
     });
+    
+There is also a replicant `rawSongData` which is the value of all the data given when requesting the current song. Can be used for more advanced implementations.
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
